@@ -1,3 +1,4 @@
+ports:
+- port: 3000
 tasks:
-  - init: pip install --upgrade pip
-    command: pip install -r requirements.txt
+- command: pip install -r requirements.txt

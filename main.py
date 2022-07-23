@@ -54,12 +54,13 @@ def process_image(image):
 
 def st_ui():
     uploaded_file = st.file_uploader(label="Upload image")
+    res = None
     if uploaded_file is not None:
         res = process_image(uploaded_file.getvalue())
 
     if isinstance(res, str):
         st.write(res)
-    else:
+    elif res is not None:
         st.image(res)
 
 

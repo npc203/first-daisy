@@ -1,3 +1,4 @@
+from distutils.command.upload import upload
 import streamlit as st
 import cv2
 import mediapipe as mp
@@ -53,7 +54,9 @@ def process_image(image):
 
 def st_ui():
     uploaded_file = st.file_uploader(label="Upload image")
-    res = process_image(uploaded_file.getvalue())
+    if uploaded_file is not None:
+        res = process_image(uploaded_file.getvalue())
+
     if isinstance(res, str):
         st.write(res)
     else:

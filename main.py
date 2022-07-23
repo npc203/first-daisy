@@ -25,9 +25,8 @@ def process_image(image):
 
     annotated_image = image.copy()
     if results.multi_face_landmarks is None:
-        return "No faces found"
+        return annotated_image
     for face_landmarks in results.multi_face_landmarks:
-        print("face_landmarks:", face_landmarks)
         mp_drawing.draw_landmarks(
             image=annotated_image,
             landmark_list=face_landmarks,
@@ -53,14 +52,14 @@ def process_image(image):
 
 
 def st_ui():
-    uploaded_file = st.file_uploader(label="Upload image")
-    res = None
+    uploaded_file = st.file_uploader(
+        label="Upload image",
+        type=["jpg", "png"],
+        accept_multiple_files=False,
+        help="Upload an image to predict",
+    )
     if uploaded_file is not None:
         res = process_image(uploaded_file.getvalue())
-
-    if isinstance(res, str):
-        st.write(res)
-    elif res is not None:
         st.image(res)
 
 

@@ -23,7 +23,7 @@ def process_image(image):
         results = face_mesh.process(image)
 
     annotated_image = image.copy()
-    if results is None:
+    if results.multi_face_landmarks is None:
         return "No faces found"
     for face_landmarks in results.multi_face_landmarks:
         print("face_landmarks:", face_landmarks)

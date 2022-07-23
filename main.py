@@ -23,6 +23,8 @@ def process_image(image):
         results = face_mesh.process(image)
 
     annotated_image = image.copy()
+    if results is None:
+        return "No faces found"
     for face_landmarks in results.multi_face_landmarks:
         print("face_landmarks:", face_landmarks)
         mp_drawing.draw_landmarks(
@@ -51,7 +53,11 @@ def process_image(image):
 
 def st_ui():
     uploaded_file = st.file_uploader(label="Upload image")
-    st.image(process_image(uploaded_file.getvalue()))
+    res = process_image(uploaded_file.getvalue())
+    if isinstance(res, str):
+        st.write(res)
+    else:
+        st.image(res)
 
 
 if __name__ == "__main__":
